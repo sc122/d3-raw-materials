@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>סל קניות - מרכז חומרי גלם D3</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>סל קניות - מרכז חומרי גלם D3</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">דף הבית</a></li>
+            <li><a href="products.html">מוצרים</a></li>
+            <li><a href="about.html">אודות</a></li>
+            <li><a href="contact.html">צור קשר</a></li>
+            <li><a href="cart.html">סל קניות</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>סל הקניות שלך</h2>
+        <table id="cart-table" class="cart-table">
+            <thead>
+                <tr>
+                    <th>מוצר</th>
+                    <th>מחיר</th>
+                    <th>פעולות</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                <!-- כאן יתווספו פריטי הסל באמצעות JavaScript -->
+            </tbody>
+        </table>
+        <p>סה"כ: <span id="total-price">0</span> ₪</p>
+        <button id="checkout-btn" class="btn">המשך לתשלום</button>
+    </main>
+    <footer>
+        <p>&copy; 2024 מרכז חומרי גלם D3. כל הזכויות שמורות. | <a href="privacy-policy.html">מדיניות פרטיות</a></p>
+    </footer>
+    <script>
+        function loadCart() {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartTable = document.getElementById('cart-items');
+            const totalElement = document.getElementById('total-price');
+            let total = 0;
+
+            cartTable.innerHTML = '';
+            cartItems.forEach((item, index) => {
+                const row = cartTable.insertRow();
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>${item.price} ₪</td>
+                    <td><button onclick="removeItem(${index})" class="btn">הסר</button></td>
+                `;
+                total += item.price;
+            });
+
+            totalElement.textContent = total;
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            alert('תודה על הזמנתך! זו הייתה הדגמה בלבד.');
+            localStorage.removeItem('cart');
+            loadCart();
+        });
+
+        window.onload = loadCart;
+    </script>
+</body>
+</html>
