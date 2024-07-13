@@ -32,6 +32,10 @@
             <label for="message">הודעה:</label>
             <textarea id="message" name="message" required></textarea>
             
+            <label for="captcha">אנא פתור את התרגיל הפשוט הבא:</label>
+            <div id="captcha-question"></div>
+            <input type="number" id="captcha" name="captcha" required>
+            
             <button type="submit" class="btn">שלח הודעה</button>
         </form>
     </main>
@@ -40,12 +44,33 @@
     </footer>
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby3O7Yq_VKKcmv2LofwmpRVXZF_5Iogd6SyesV_3mhmuzMo9KaOwbCiZxyN-YP3IN1BNQ/exec';
+        
+        function generateCaptcha() {
+            var num1 = Math.floor(Math.random() * 10) + 1;
+            var num2 = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('captcha-question').innerText = num1 + " + " + num2 + " = ?";
+            return num1 + num2;
+        }
+
+        var captchaResult = generateCaptcha();
+
+        function validateForm() {
+            var userAnswer = document.getElementById('captcha').value;
+            if (parseInt(userAnswer) !== captchaResult) {
+                alert('התשובה לתרגיל החשבון שגויה. אנא נסה שוב.');
+                captchaResult = generateCaptcha();
+                return false;
+            }
+            return true;
+        }
 
         document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
+            if (!validateForm()) {
+                return;
+            }
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
-
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
@@ -56,9 +81,9 @@
                     },
                     body: JSON.stringify(data),
                 });
-
                 alert('תודה על פנייתך! ההודעה נשלחה בהצלחה. מייל אישור יישלח לכתובת האימייל שסיפקת.');
                 this.reset();
+                captchaResult = generateCaptcha(); // Generate new CAPTCHA after form submission
             } catch (error) {
                 console.error('Error:', error);
                 alert('אירעה שגיאה בשליחת ההודעה. אנא נסה שוב מאוחר יותר.');
