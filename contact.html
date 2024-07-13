@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>צור קשר - מרכז חומרי גלם D3</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>צור קשר - מרכז חומרי גלם D3</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">דף הבית</a></li>
+            <li><a href="products.html">מוצרים</a></li>
+            <li><a href="about.html">אודות</a></li>
+            <li><a href="contact.html">צור קשר</a></li>
+            <li><a href="cart.html">סל קניות</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>צור איתנו קשר</h2>
+        <form id="contact-form">
+            <label for="name">שם מלא:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">כתובת אימייל:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="message">הודעה:</label>
+            <textarea id="message" name="message" required></textarea>
+            
+            <button type="submit" class="btn">שלח הודעה</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2024 מרכז חומרי גלם D3. כל הזכויות שמורות. | <a href="privacy-policy.html">מדיניות פרטיות</a></p>
+    </footer>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('תודה על פנייתך! נחזור אליך בהקדם.');
+        });
+    </script>
+</body>
+</html>
