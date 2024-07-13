@@ -39,9 +39,30 @@
         <p>&copy; 2024 מרכז חומרי גלם D3. כל הזכויות שמורות. | <a href="privacy-policy.html">מדיניות פרטיות</a></p>
     </footer>
     <script>
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyr6tm2WF06w4W5bTQeM-2WkDzy2Ec6ZswONDs4bGhZzPyQQzO6GsDREoJYoLez3KM0yw/exec';
+
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            alert('תודה על פנייתך! נחזור אליך בהקדם.');
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                alert('תודה על פנייתך! ההודעה נשלחה בהצלחה.');
+                this.reset();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('אירעה שגיאה בשליחת ההודעה. אנא נסה שוב מאוחר יותר.');
+            }
         });
     </script>
 </body>
