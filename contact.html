@@ -6,7 +6,6 @@
     <title>צור קשר - מרכז חומרי גלם D3</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <header>
@@ -33,8 +32,6 @@
             <label for="message">הודעה:</label>
             <textarea id="message" name="message" required></textarea>
             
-            <div class="g-recaptcha" data-sitekey="6LcldQ8qAAAAAAH-DkCLswf-ZH4lCKr0bPVYxv25"></div>
-            
             <button type="submit" class="btn">שלח הודעה</button>
         </form>
     </main>
@@ -42,15 +39,12 @@
         <p>&copy; 2024 מרכז חומרי גלם D3. כל הזכויות שמורות. | <a href="privacy-policy.html">מדיניות פרטיות</a></p>
     </footer>
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycX7KNz9k20V0hhawmUSWdNdp1rJFTc68ipepuOzpzTohfRh0sOVOO8gB2-ttXP6e2aQ/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1EJDcepvqiiJ9uxMvunqUSapNpZQhZwO4_ll16IBRTIPQDqXcmPY3r0qCCjiQvx361Q/exec';
 
         document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
-            
-            // הוספת תגובת ה-reCAPTCHA לנתונים
-            data['g-recaptcha-response'] = grecaptcha.getResponse();
 
             try {
                 const response = await fetch(SCRIPT_URL, {
@@ -63,9 +57,8 @@
                     body: JSON.stringify(data),
                 });
 
-                alert('תודה על פנייתך! ההודעה נשלחה בהצלחה.');
+                alert('תודה על פנייתך! ההודעה נשלחה בהצלחה. מייל אישור יישלח לכתובת האימייל שסיפקת.');
                 this.reset();
-                grecaptcha.reset();
             } catch (error) {
                 console.error('Error:', error);
                 alert('אירעה שגיאה בשליחת ההודעה. אנא נסה שוב מאוחר יותר.');
