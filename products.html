@@ -4,61 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>קטלוג מוצרים - מרכז חומרי גלם D3</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-        }
-        nav {
-            background-color: #333;
-            color: white;
-            padding: 0.5rem;
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-        main {
-            padding: 20px;
-        }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .product-card {
-            border: 1px solid #ddd;
-            padding: 15px;
-            text-align: center;
-        }
-        .product-card img {
-            max-width: 100%;
-            height: auto;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -67,9 +14,10 @@
     <nav>
         <ul>
             <li><a href="index.html">דף הבית</a></li>
-            <li><a href="#">מוצרים</a></li>
-            <li><a href="#">אודות</a></li>
-            <li><a href="#">צור קשר</a></li>
+            <li><a href="products.html">מוצרים</a></li>
+            <li><a href="about.html">אודות</a></li>
+            <li><a href="contact.html">צור קשר</a></li>
+            <li><a href="cart.html">סל קניות</a></li>
         </ul>
     </nav>
     <main>
@@ -80,47 +28,35 @@
                 <h3>סליל פלסטיק ABS</h3>
                 <p>סליל באיכות גבוהה לשימוש במדפסות תלת מימד</p>
                 <p>מחיר: ₪120</p>
-                <button>הוסף לסל</button>
+                <button class="btn" onclick="addToCart('סליל פלסטיק ABS', 120)">הוסף לסל</button>
             </div>
             <div class="product-card">
                 <img src="/api/placeholder/250/250" alt="סליל פלסטיק PLA">
                 <h3>סליל פלסטיק PLA</h3>
                 <p>סליל ידידותי לסביבה לשימוש במדפסות תלת מימד</p>
                 <p>מחיר: ₪110</p>
-                <button>הוסף לסל</button>
+                <button class="btn" onclick="addToCart('סליל פלסטיק PLA', 110)">הוסף לסל</button>
             </div>
             <div class="product-card">
                 <img src="/api/placeholder/250/250" alt="סליל גמיש TPU">
                 <h3>סליל גמיש TPU</h3>
                 <p>סליל גמיש לייצור חלקים אלסטיים</p>
                 <p>מחיר: ₪150</p>
-                <button>הוסף לסל</button>
+                <button class="btn" onclick="addToCart('סליל גמיש TPU', 150)">הוסף לסל</button>
             </div>
-            <div class="product-card">
-                <img src="/api/placeholder/250/250" alt="משטח הדפסה">
-                <h3>משטח הדפסה</h3>
-                <p>משטח הדפסה איכותי לתוצאות מושלמות</p>
-                <p>מחיר: ₪80</p>
-                <button>הוסף לסל</button>
-            </div>
-            <div class="product-card">
-                <img src="/api/placeholder/250/250" alt="ערכת כלים לגימור">
-                <h3>ערכת כלים לגימור</h3>
-                <p>ערכה מקיפה לגימור מודלים מודפסים</p>
-                <p>מחיר: ₪200</p>
-                <button>הוסף לסל</button>
-            </div>
-            <div class="product-card">
-                <img src="/api/placeholder/250/250" alt="צבע אקרילי למודלים">
-                <h3>צבע אקרילי למודלים</h3>
-                <p>סט צבעים איכותיים לצביעת מודלים</p>
-                <p>מחיר: ₪90</p>
-                <button>הוסף לסל</button>
-            </div>
+            <!-- Add more product cards as needed -->
         </div>
     </main>
     <footer>
-        <p>&copy; 2024 מרכז חומרי גלם D3. כל הזכויות שמורות.</p>
+        <p>&copy; 2024 מרכז חומרי גלם D3. כל הזכויות שמורות. | <a href="privacy-policy.html">מדיניות פרטיות</a></p>
     </footer>
+    <script>
+        function addToCart(productName, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({name: productName, price: price});
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('המוצר נוסף לסל הקניות!');
+        }
+    </script>
 </body>
 </html>
